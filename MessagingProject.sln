@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "servers", "servers", "{6DC12418-EC89-41A8-BF58-E1F03C61A2C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "clients", "clients", "{A39A2203-D501-4C1C-A80C-807460EFCE27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingWebService", "MessagingWebService\MessagingWebService.csproj", "{57C71064-2C75-4B76-821E-F4884D5D5197}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingWebClients", "MessagingWebClients\MessagingWebClients.csproj", "{B98EA2EC-A1DB-4729-B7CA-9AB3BEDD321E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{F8D59C29-DCF8-4369-A28E-6506EFBC4D75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingWebCore", "MessagingWebCore\MessagingWebCore.csproj", "{2D86D685-5CA2-4A6B-B085-5DECC85D7E84}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57C71064-2C75-4B76-821E-F4884D5D5197}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57C71064-2C75-4B76-821E-F4884D5D5197}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57C71064-2C75-4B76-821E-F4884D5D5197}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57C71064-2C75-4B76-821E-F4884D5D5197}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B98EA2EC-A1DB-4729-B7CA-9AB3BEDD321E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B98EA2EC-A1DB-4729-B7CA-9AB3BEDD321E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B98EA2EC-A1DB-4729-B7CA-9AB3BEDD321E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B98EA2EC-A1DB-4729-B7CA-9AB3BEDD321E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D86D685-5CA2-4A6B-B085-5DECC85D7E84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D86D685-5CA2-4A6B-B085-5DECC85D7E84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D86D685-5CA2-4A6B-B085-5DECC85D7E84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D86D685-5CA2-4A6B-B085-5DECC85D7E84}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{57C71064-2C75-4B76-821E-F4884D5D5197} = {6DC12418-EC89-41A8-BF58-E1F03C61A2C9}
+		{B98EA2EC-A1DB-4729-B7CA-9AB3BEDD321E} = {A39A2203-D501-4C1C-A80C-807460EFCE27}
+		{2D86D685-5CA2-4A6B-B085-5DECC85D7E84} = {F8D59C29-DCF8-4369-A28E-6506EFBC4D75}
+	EndGlobalSection
+EndGlobal
