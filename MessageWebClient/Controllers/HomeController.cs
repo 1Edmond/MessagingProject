@@ -17,6 +17,11 @@ namespace MessageWebClient.Controllers
         {
             return View();
         }
+        
+        public IActionResult HistoriqueView()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {

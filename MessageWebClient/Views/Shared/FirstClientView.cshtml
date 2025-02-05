@@ -1,22 +1,22 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using MessageWebClient.Helpers
+
 @{
+    var apiUrl = ApiHelper.API_LINK; 
 }
+
 <form id="messageForm">
     <div class="form-group">
-        <label for="text">Texte</label>
+        <label for="text">Текст</label>
         <input type="text" class="form-control" id="text" name="text" required>
     </div>
     <div class="form-group">
-        <label for="sequenceNumber">Numéro de Séquence</label>
+        <label for="sequenceNumber">Порядковый номер</label>
         <input type="number" class="form-control" id="sequenceNumber" name="sequenceNumber" required>
     </div>
-    <button type="submit" class="btn btn-primary mt-3">Ajouter</button>
+    <button type="submit" class="btn btn-primary mt-3">Добавить</button>
 </form>
 <div id="responseMessage" class="mt-3"></div>
 
-<script src="/lib/jquery/dist/jquery.min.js"> </script>
 
 <script>
 
@@ -24,24 +24,24 @@
         $('#messageForm').on('submit', function(event) {
             event.preventDefault();
 
-            
+            var apiUrl = '@apiUrl' + 'api/AppMessage/add';
             var messageData = {
                 Text: $('#text').val(),
-                Timestamp: new Date().toISOString(), // Timestamp actuel
+                Timestamp: new Date().toISOString(), 
                 SequenceNumber: $('#sequenceNumber').val()
             };
 
             $.ajax({
-                url: 'https://localhost:7054/api/AppMessage/add', // Remplacez par l'URL de votre API
+                url: apiUrl, 
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(messageData),
                 success: function(response) {
-                    $('#responseMessage').html('<div class="alert alert-success">Message ajouté avec succès!</div>');
-                    $('#messageForm')[0].reset(); // Réinitialise le formulaire
+                    $('#responseMessage').html('<div class="alert alert-success">Сообщение успешно добавлено!</div>');
+                    $('#messageForm')[0].reset(); 
                 },
                 error: function() {
-                    $('#responseMessage').html('<div class="alert alert-danger">Erreur lors de l\'ajout du message.</div>');
+                    $('#responseMessage').html('<div class="alert alert-danger">Ошибка при добавлении сообщения.</div>');
                 }
             });
         });

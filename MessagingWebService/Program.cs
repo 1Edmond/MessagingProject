@@ -8,11 +8,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddWebSockets(options =>
-{
-    
-    options.KeepAliveInterval = TimeSpan.FromSeconds(25);
-});
 
 
 builder.Services.AddControllers();
@@ -25,11 +20,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-
-
-
-
 var app = builder.Build();
+
+
+app.UseWebSockets(new WebSocketOptions
+{
+    KeepAliveInterval = TimeSpan.FromMinutes(2)
+});
 
 app.UseCors(builder => builder
      .AllowAnyOrigin()
@@ -43,10 +40,7 @@ if (app.Environment.IsDevelopment())
 }
 
 
-app.UseWebSockets(new WebSocketOptions
-{
-    KeepAliveInterval = TimeSpan.FromSeconds(25)
-});
+
 
 app.UseHttpsRedirection();
 

@@ -1,1 +1,85 @@
-﻿
+﻿@using MessageWebClient.Helpers
+
+@{
+    var apiUrl = ApiHelper.API_LINK ;
+}
+<link href="/DataTables/datatables.min.css" rel="stylesheet">
+
+
+<div class="container mt-5">
+    <table class="table table-bordered table-striped table-responsive" id="messageTable">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Текст</th>
+                <th>Дата и время</th>
+                <th>Порядковый номер</th>
+            </tr>
+        </thead>
+        <tbody id="messageTableBody">
+            
+        </tbody>
+    </table>
+</div>
+
+
+<script src="/DataTables/datatables.min.js"></script>
+<script src="/lib/jquery/dist/jquery.min.js"> </script>
+<script>
+    $(document).ready(function() {
+        
+
+        function loadTableData() {
+             var apiUrl = '@apiUrl' + 'api/AppMessage';
+            $.ajax({
+                url: apiUrl ,
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                    let rows = '';
+                    $.each(data, function(index, message) {
+                        rows += `<tr>
+                                    <td>${message.id}</td>
+                                    <td>${message.text}</td>
+                                    <td>${new Date(message.timestamp).toLocaleString()}</td>
+                                    <td>${message.sequenceNumber}</td>
+                                    </tr>`;
+                    });
+                    $('#messageTableBody').html(rows);
+                    
+                    var table = new DataTable('#messageTable', {
+                       responsive: true,
+                        order: [[2, 'desc']],
+                        language: {
+                        "sEmptyTable":     "Нет данных в таблице",
+                        "sInfo":           "Показано с _START_ по _END_ из _TOTAL_ записей",
+                        "sInfoEmpty":      "Показано с 0 по 0 из 0 записей",
+                        "sInfoFiltered":   "(отфильтровано из _MAX_ записей)",
+                        "sLengthMenu":     "Показать _MENU_ записей",
+                        "sLoadingRecords": "Загрузка...",
+                        "sProcessing":     "Обработка...",
+                        "sSearch":         "Поиск:",
+                        "sZeroRecords":    "Совпадений не найдено",
+                        "oPaginate": {
+                            "sFirst":      "Первый",
+                            "sLast":       "Последний",
+                            "sNext":       "Следующий",
+                            "sPrevious":   "Предыдущий"
+                        },
+                        "oAria": {
+                            "sSortAscending":  ": активировать для сортировки столбца по возрастанию",
+                            "sSortDescending": ": активировать для сортировки столбца по убыванию"
+                        }
+                    }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Ошибка восстановления данных:', error);
+                }
+            });
+        }
+
+        loadTableData();
+    });
+</script>

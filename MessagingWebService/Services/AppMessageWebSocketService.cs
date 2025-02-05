@@ -27,6 +27,6 @@ public class AppMessageWebSocketService
 
         foreach (var socket in WebSockets)
             if (socket.State == WebSocketState.Open)
-                await socket.SendAsync(segment, WebSocketMessageType.Text, false, CancellationToken.None);   
+                await socket.SendAsync(segment, WebSocketMessageType.Text, true, CancellationToken.None);   
     }
 }

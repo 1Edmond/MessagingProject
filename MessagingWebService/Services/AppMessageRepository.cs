@@ -1,4 +1,5 @@
 ﻿using MessagingWebCore.Models;
+using MessagingWebService.Helpers;
 using MessagingWebService.Interfaces;
 using Npgsql;
 
@@ -46,8 +47,8 @@ public class AppMessageRepository : IAppMessageRepository
 
     public Task<List<AppMessage>> GetMessages(DateTime? from, DateTime? to)
     {
-        from ??= DateTime.Now.AddHours(-5);
-        to ??= DateTime.Now.AddHours(5);
+        from ??= DateTime.Now.AddMinutes( - HistoriqueHelper.UserAccessLastMinutesHistoryTime);
+        to ??= DateTime.Now;
 
         var messages = new List<AppMessage>();
         using var connection = new NpgsqlConnection(_connectionString);
@@ -66,6 +67,7 @@ public class AppMessageRepository : IAppMessageRepository
                 SequenceNumber = reader.GetInt32(3)
             });
         }
+        messages.OrderBy(x => x.Timestamp);
         return Task.FromResult(messages);
     }
 }
