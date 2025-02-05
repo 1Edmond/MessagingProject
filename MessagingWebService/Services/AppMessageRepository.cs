@@ -15,6 +15,12 @@ public class AppMessageRepository : IAppMessageRepository
     {
         _logger = logger;
         _connectionString = configuration.GetConnectionString("PostgresConnectionString")!;
+
+        //_connectionString = $"Host={Environment.GetEnvironmentVariable("DB_HOST")};" +
+        //             $"Database={Environment.GetEnvironmentVariable("DB_NAME")};" +
+        //             $"Username={Environment.GetEnvironmentVariable("DB_USER")};" +
+        //             $"Password={Environment.GetEnvironmentVariable("DB_PASSWORD")}";
+
         this.appMessageWebSocketService = appMessageWebSocketService;
         _logger.LogInformation("Создание таблицы, если она не существует");
         using var connection = new NpgsqlConnection(_connectionString);
