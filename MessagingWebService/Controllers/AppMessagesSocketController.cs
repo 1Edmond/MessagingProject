@@ -54,5 +54,7 @@ public class AppMessagesSocketController : ControllerBase
             receiveResult.CloseStatus.Value,
             receiveResult.CloseStatusDescription,
             CancellationToken.None);
+        _logger.LogInformation("Удаление клиента.");
+        await appMessageWebSocketService.RemoveClient(webSocket);
     }
 }
