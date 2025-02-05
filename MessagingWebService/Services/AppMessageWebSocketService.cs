@@ -22,6 +22,12 @@ public class AppMessageWebSocketService
         _logger.LogInformation("Клиент успешно добавлен.");
         return Task.CompletedTask;
     }
+    public Task RemoveClient(WebSocket webSocket)
+    {
+        WebSockets.Remove(webSocket);
+        _logger.LogInformation("Клиент удален.");
+        return Task.CompletedTask;
+    }
 
     public async Task SendMessageToClients(AppMessage message)
     {
