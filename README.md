@@ -1,6 +1,7 @@
 # MessagingProject
 
-<video src="https://drive.google.com/uc?export=download&id=14KknKve3pMJpAls8mHyMA1rHmUdlV-qz" autoplay > </video>
+
+![Enregistrementdelcran2025-02-05141026-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/9e267b9a-d120-4317-9371-d3377a2ce558)
 
 Ниже приведено видео о том, как работает приложение.
 #Используемые технологии:
