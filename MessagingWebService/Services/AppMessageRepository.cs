@@ -6,13 +6,23 @@ namespace MessagingWebService.Services;
 
 public class AppMessageRepository : IAppMessageRepository
 {
+    AppMessageWebSocketService appMessageWebSocketService;
     private readonly string _connectionString;
 
-    public AppMessageRepository(string connectionString)
+    public AppMessageRepository(IConfiguration configuration, AppMessageWebSocketService appMessageWebSocketService)
     {
-        _connectionString = connectionString;
+        _connectionString = configuration.GetConnectionString("PostgresConnectionString")!;
+        this.appMessageWebSocketService = appMessageWebSocketService;
+        using var connection = new NpgsqlConnection(_connectionString);
+        connection.Open();
+        var command = new NpgsqlCommand("CREATE TABLE IF NOT EXISTS messages (\r\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\r\n    text VARCHAR NOT NULL,\r\n    timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n    sequence_number INT NOT NULL\r\n);"
+           , connection);
+        command.ExecuteNonQuery();
+        connection.Close();
+
+
     }
-    public Task AddMessage(AppMessage message)
+    public async Task AddMessage(AppMessage message)
     {
         using var connection = new NpgsqlConnection(_connectionString);
         connection.Open();
@@ -27,15 +37,17 @@ public class AppMessageRepository : IAppMessageRepository
         command.Parameters.AddWithValue("@text", message.Text);
         command.Parameters.AddWithValue("@timestamp", message.Timestamp);
         command.Parameters.AddWithValue("@sequence_number", message.SequenceNumber);
-        command.ExecuteNonQuery();
-
-        return Task.CompletedTask;
+        var number = command.ExecuteNonQuery();
+        if(number > 0)
+        {
+            await appMessageWebSocketService.SendMessageToClients(message);
+        }
     }
 
-    public Task<List<AppMessage>> GetMessages(DateTime? from = null, DateTime? to = null)
+    public Task<List<AppMessage>> GetMessages(DateTime? from, DateTime? to)
     {
         from ??= DateTime.Now.AddHours(-5);
-        to ??= DateTime.Now;
+        to ??= DateTime.Now.AddHours(5);
 
         var messages = new List<AppMessage>();
         using var connection = new NpgsqlConnection(_connectionString);
