@@ -1,4 +1,4 @@
-using MessageWebClient.Models;
+﻿using MessageWebClient.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,6 +15,13 @@ namespace MessageWebClient.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogInformation("Главная страница");
+            return View();
+        }
+        
+        public IActionResult HistoriqueView()
+        {
+            _logger.LogInformation("Страница истории");
             return View();
         }
 
