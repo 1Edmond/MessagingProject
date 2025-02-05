@@ -1,8 +1,20 @@
+using Microsoft.Extensions.Configuration;
+using Serilog;
+using System.Text;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
+
+Console.OutputEncoding = Encoding.UTF8;
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
 builder.Services.AddControllersWithViews();
 
+builder.Host.UseSerilog();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
